@@ -1,0 +1,49 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "global happiness score",
+    "width": 550,
+    "height": 330,
+    "projection": {"type": "equirectangular"},
+    "data": {
+      "url": "https://raw.githubusercontent.com/KaneSec/vega_lite/main/3_choropleth_map/js/ne_110m_admin_0_countries.topojson",
+      "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+    },
+    "transform": [
+      {
+        "lookup": "properties.NAME",
+        "from": {
+          "data": {
+            "url": "https://raw.githubusercontent.com/LOUJINGYAN/FIT3179/main/global%20happy.csv"
+          },
+          "key": "Country or region",
+          "fields": ["Score"]
+        }
+      },
+      {"calculate": "datum.Score", "as": "Score per 1000 people"}
+    ],
+    "mark": {"type": "geoshape"},
+    "encoding": {
+      "color": {
+        "field": "Score",
+        "type": "quantitative",
+        "scale": {
+          "type": "log",
+          "domain": [1,4,5,6,7,10],
+          "range": ["#edf8e9","#bae4b3","#74c476","#31a354","#006d2c"]
+        }
+      },
+      "tooltip": [
+        {
+          "field": "properties.NAME",
+          "type": "nominal",
+          "title": "Country/Region"
+        },
+        {
+          "field": "Score per 1000 people",
+          "type": "quantitative",
+          "title": "Score",
+          "format": ".2f"
+        }
+      ]
+    }
+  }

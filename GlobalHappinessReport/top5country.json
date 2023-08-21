@@ -1,0 +1,35 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "A simple bar chart with embedded data.",
+  "width":545,
+  "height":250,
+  "data": {
+   "values": [
+        {"country": "Finland", "socre": 7.769}, 
+        {"country": "Denmark", "socre": 7.6}, 
+        {"country": "Norway", "socre": 7.554}, 
+        {"country": "Iceland", "socre": 7.494}, 
+        {"country": "Netherlands", "socre": 7.488}
+        
+      ]
+  },
+
+  "encoding": {
+    "x": {"field": "country", "type": "nominal", "axis": {"labelAngle": 0},"sort":[]},
+    "y": {"field": "socre", "type": "quantitative"}
+  },
+  "layer": [{
+    "mark": "bar"
+  }, {
+    "mark": {
+      "type": "text",
+      "align": "left",
+      "baseline": "middle",
+      "dx": 3
+    },
+    "encoding": {
+      "text": {"field": "socre", "type": "quantitative"}
+    }
+  }]
+
+}

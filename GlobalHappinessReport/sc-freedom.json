@@ -1,0 +1,68 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 200,
+    "height": 200,
+    "data": {
+      "url": "https://raw.githubusercontent.com/LOUJINGYAN/FIT3179/main/global%20happy.csv"
+    },
+    "layer": [
+      {
+        "mark": {
+          "type": "point",
+          "filled": true
+        },
+        "encoding": {
+          "x": {
+            "field": "Freedom to make life choices",
+            "type": "quantitative"
+          },
+          "y": {
+            "field": "Score",
+            "type": "quantitative"
+          }
+        }
+      },
+      {
+        "mark": {
+          "type": "line",
+          "color": "firebrick"
+        },
+        "transform": [
+          {
+            "regression": "Score",
+            "on": "Freedom to make life choices"
+          }
+        ],
+        "encoding": {
+          "x": {
+            "field": "Freedom to make life choices",
+            "type": "quantitative"
+          },
+          "y": {
+            "field": "Score",
+            "type": "quantitative"
+          }
+        }
+      },
+      {
+        "transform": [
+          {
+            "regression": "Score",
+            "on": "Freedom to make life choices",
+            "params": true
+          },
+          {"calculate": "'R²: '+format(datum.rSquared, '.2f')", "as": "R2"}
+        ],
+        "mark": {
+          "type": "text",
+          "color": "firebrick",
+          "x": "width",
+          "align": "right",
+          "y": -5
+        },
+        "encoding": {
+          "text": {"type": "nominal", "field": "R2"}
+        }
+      }
+    ]
+  }
